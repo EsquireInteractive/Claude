@@ -9,10 +9,12 @@ export interface WorkItem {
   status: WorkStatus
   client?: string
   description?: string
+  progress?: number
 }
 
 export interface Project {
   id: string
+  zohoId?: string
   name: string
   workflowId?: number
   teamsInvolved: number[]
@@ -21,106 +23,271 @@ export interface Project {
   startDate?: string
   description: string
   client?: string
+  progress?: number
+  openTasks?: number
 }
 
 export const CURRENT_WORK: WorkItem[] = [
-  // Finance
-  { id: "w1", title: "May cash flow review", teamId: 1, specialist: "Felix", status: "active", description: "30/60/90-day outlook update for June" },
-  { id: "w2", title: "Outstanding invoice follow-ups", teamId: 1, specialist: "Paige", status: "active", description: "3 overdue invoices — tone-matched reminders" },
-  { id: "w3", title: "May monthly close prep", teamId: 1, specialist: "Mona", status: "review", description: "QuickBooks reconciliation — awaiting final data" },
+  // SEO (Team 7)
+  {
+    id: "w1",
+    title: "Ahrefs site audit — 4xx errors & broken links",
+    teamId: 7,
+    specialist: "Arnab",
+    status: "active",
+    client: "EI Website SEO",
+    description: "Full crawl in progress — resolving 4xx errors and broken internal links",
+  },
+  {
+    id: "w2",
+    title: "Write brief: /google-ads/ppc-for-lawyers/",
+    teamId: 7,
+    specialist: "Christian",
+    status: "active",
+    description: "Content brief for PPC landing page targeting law firm advertisers",
+  },
+  {
+    id: "w3",
+    title: "Review brief: /google-ads/ppc-for-lawyers/",
+    teamId: 7,
+    specialist: "Randi",
+    status: "review",
+    description: "Editing and QA pass on PPC brief before handoff to content",
+  },
 
-  // Content & Campaigns
-  { id: "w4", title: "3 SEO blog posts — personal injury law", teamId: 2, specialist: "Barbara", status: "active", client: "Miller Law Group" },
-  { id: "w5", title: "Q3 content calendar", teamId: 2, specialist: "Max", status: "active", description: "Topical authority plan for Q3" },
-  { id: "w6", title: "Re-engagement email sequence", teamId: 2, specialist: "Juno", status: "review", client: "Coastal Legal Partners" },
+  // Website Design & Build (Team 8)
+  {
+    id: "w4",
+    title: "Create contact page on design",
+    teamId: 8,
+    specialist: "Cesar",
+    status: "active",
+    client: "Mark Bentley",
+    description: "Designing contact page layout and form in Figma",
+  },
+  {
+    id: "w5",
+    title: "Create inner pages",
+    teamId: 8,
+    specialist: "Cesar",
+    status: "active",
+    client: "Hamrick Palmer",
+    description: "Building out practice area and attorney profile pages",
+  },
+  {
+    id: "w6",
+    title: "Website design",
+    teamId: 8,
+    specialist: "Desiree",
+    status: "review",
+    client: "Mark Bentley",
+    description: "Full site design in review — awaiting client feedback",
+  },
+  {
+    id: "w7",
+    title: "Update website images",
+    teamId: 8,
+    specialist: "Hazar",
+    status: "review",
+    client: "North City Law",
+    description: "Image optimization and replacement pass",
+  },
+  {
+    id: "w8",
+    title: "Upload Boat Accident practice page",
+    teamId: 8,
+    specialist: "Hazar",
+    status: "review",
+    client: "Holleman",
+    description: "New practice area page staged — pending final review",
+  },
+  {
+    id: "w9",
+    title: "EI Website Update — 12 open tasks",
+    teamId: 8,
+    specialist: "Kelly",
+    status: "active",
+    client: "EI Website",
+    description: "Ongoing internal website improvements across design and copy",
+    progress: 91,
+  },
 
-  // Social & Growth
-  { id: "w7", title: "June social content calendar", teamId: 3, specialist: "Stella", status: "active", description: "Instagram, Facebook, TikTok" },
-  { id: "w8", title: "LinkedIn thought leadership series", teamId: 3, specialist: "Linx", status: "active", client: "Hartwell & Associates" },
+  // Content & Campaigns (Team 2)
+  {
+    id: "w10",
+    title: "Make the Pages",
+    teamId: 2,
+    specialist: "Desiree",
+    status: "review",
+    client: "Resolvere",
+    description: "Final page production — in review before publish",
+  },
+  {
+    id: "w11",
+    title: "EI practice area content",
+    teamId: 2,
+    specialist: "Desiree",
+    status: "active",
+    description: "Writing EI internal practice content for new service pages",
+  },
+  {
+    id: "w12",
+    title: "Writing Projects — 5 open",
+    teamId: 2,
+    specialist: "Desiree",
+    status: "active",
+    description: "Active writing queue across multiple clients",
+    progress: 92,
+  },
 
-  // Sales & Brand
-  { id: "w9", title: "Brand discovery sprint", teamId: 4, specialist: "Ember", status: "active", client: "Morrison Family Law" },
-  { id: "w10", title: "Cold outreach sequence — DUI law firms", teamId: 4, specialist: "Celia", status: "active" },
-  { id: "w11", title: "Q2 competitor landscape update", teamId: 4, specialist: "Sophie", status: "review" },
+  // Client Success & Ops (Team 5)
+  {
+    id: "w13",
+    title: "RedCave — 79 open tasks",
+    teamId: 5,
+    specialist: "Kelly",
+    status: "active",
+    client: "RedCave",
+    description: "Large active project — ongoing execution across multiple deliverables",
+    progress: 8,
+  },
+  {
+    id: "w14",
+    title: "Intranet final task",
+    teamId: 5,
+    specialist: "Kelly",
+    status: "review",
+    description: "Final intranet milestone — awaiting sign-off",
+    progress: 88,
+  },
+  {
+    id: "w15",
+    title: "BKBH — 4 open tasks",
+    teamId: 5,
+    specialist: "Kelly",
+    status: "active",
+    client: "BKBH",
+    description: "Active client tasks in execution",
+    progress: 86,
+  },
 
-  // Client Success & Ops
-  { id: "w12", title: "New client onboarding — Rivera Law", teamId: 5, specialist: "Cassie", status: "active", client: "Rivera Law" },
-  { id: "w13", title: "CRM cleanup — stale deal triage", teamId: 5, specialist: "Axel", status: "active" },
-  { id: "w14", title: "Weekly Monday brief", teamId: 5, specialist: "Beatrix", status: "blocked", description: "Awaiting finance data" },
-
-  // People & Development
-  { id: "w15", title: "SEO Specialist job post", teamId: 6, specialist: "Harper", status: "active" },
-  { id: "w16", title: "New hire 30/60/90 plan", teamId: 6, specialist: "Aiden", status: "review" },
-
-  // SEO
-  { id: "w17", title: "Technical SEO audit", teamId: 7, specialist: "Tera", status: "active", client: "Thompson & Webb" },
-  { id: "w18", title: "Keyword map — bankruptcy law vertical", teamId: 7, specialist: "Kylo", status: "active" },
-  { id: "w19", title: "Rank tracking baseline setup", teamId: 7, specialist: "Trace", status: "review", client: "Rivera Law" },
-  { id: "w20", title: "AI Search visibility audit", teamId: 7, specialist: "Geo", status: "active", client: "Thompson & Webb" },
-
-  // Website Design & Build
-  { id: "w21", title: "Website rebuild — creative brief", teamId: 8, specialist: "Dirk", status: "active", client: "Morrison Family Law" },
-  { id: "w22", title: "Design system tokens — ePRESQ v2", teamId: 8, specialist: "Syd", status: "review" },
-  { id: "w23", title: "Contact form optimization", teamId: 8, specialist: "Forrest", status: "active", client: "Coastal Legal Partners" },
+  // Sales & Brand (Team 4)
+  {
+    id: "w16",
+    title: "Set up Google My Business API",
+    teamId: 4,
+    specialist: "Brendan",
+    status: "active",
+    description: "High-priority: integrating GMB API for client reporting pipeline",
+  },
+  {
+    id: "w17",
+    title: "North City Law — 3 open tasks",
+    teamId: 4,
+    specialist: "Kelly",
+    status: "active",
+    client: "North City Law",
+    description: "Ongoing account management tasks",
+    progress: 75,
+  },
 ]
 
 export const RECENT_PROJECTS: Project[] = [
   {
     id: "p1",
-    name: "Full SEO Campaign",
-    workflowId: 3,
-    teamsInvolved: [7, 2, 8, 3],
-    status: "completed",
-    completedDate: "May 28, 2026",
-    description: "Technical audit, keyword map, content architecture, rank tracking baseline, social amplification.",
-    client: "Hartwell & Associates",
+    zohoId: "PR-387",
+    name: "Mark Bentley",
+    teamsInvolved: [8, 2, 7],
+    status: "in-progress",
+    startDate: "Jun 3, 2026",
+    description: "Website design and page builds in progress — contact page and inner pages active.",
+    client: "Mark Bentley",
+    progress: 0,
   },
   {
     id: "p2",
-    name: "Brand Build",
-    workflowId: 4,
-    teamsInvolved: [4, 8, 2, 3],
-    status: "in-progress",
-    startDate: "May 15, 2026",
-    description: "Brand discovery, logo + identity, design system, site structure in progress.",
-    client: "Morrison Family Law",
+    zohoId: "PR-385",
+    name: "South Coast Estate Planning",
+    teamsInvolved: [8, 2, 7],
+    status: "completed",
+    completedDate: "May 22, 2026",
+    description: "Full website and content delivery completed on schedule.",
+    client: "South Coast Estate Planning",
   },
   {
     id: "p3",
-    name: "Paid Campaign Launch — Q2 Lead Gen",
-    workflowId: 5,
-    teamsInvolved: [4, 2, 3, 1],
-    status: "in-progress",
-    startDate: "May 1, 2026",
-    description: "Google + Meta + LinkedIn targeting law firm partners. Mid-campaign optimization underway.",
+    zohoId: "PR-384",
+    name: "Surcee Studios",
+    teamsInvolved: [8, 2],
+    status: "completed",
+    completedDate: "Apr 22, 2026",
+    description: "18-task project completed — website build and content production delivered.",
+    client: "Surcee Studios",
+    openTasks: 0,
   },
   {
     id: "p4",
-    name: "New Client Lifecycle",
-    workflowId: 1,
-    teamsInvolved: [4, 5, 8, 7, 2, 3, 1],
+    zohoId: "PR-382",
+    name: "North City Law",
+    teamsInvolved: [4, 8, 7],
     status: "in-progress",
-    startDate: "Jun 1, 2026",
-    description: "Onboarding complete. Technical audit and website build queued.",
-    client: "Rivera Law",
+    startDate: "Apr 1, 2026",
+    description: "Active account — website images updated, 3 remaining tasks in progress.",
+    client: "North City Law",
+    progress: 75,
   },
   {
     id: "p5",
-    name: "Technical SEO + Quality Audit",
-    workflowId: 17,
-    teamsInvolved: [7, 8, 2],
+    zohoId: "PR-380",
+    name: "EI Social Media Content Plan",
+    teamsInvolved: [3, 2, 4],
     status: "completed",
-    completedDate: "May 10, 2026",
-    description: "Technical audit, performance review, accessibility pass, content gap analysis.",
-    client: "Coastal Legal Partners",
+    completedDate: "Mar 26, 2026",
+    description: "Internal social strategy and content calendar completed and deployed.",
   },
   {
     id: "p6",
-    name: "Content Marketing Campaign — AI Search",
-    workflowId: 11,
-    teamsInvolved: [2, 3, 7, 4, 1],
+    zohoId: "PR-378",
+    name: "Creative Lawyers",
+    teamsInvolved: [2, 7, 8],
     status: "completed",
-    completedDate: "May 20, 2026",
-    description: "Pillar content on AI search for law firms. 3 pieces published, email sequence live.",
+    completedDate: "Mar 23, 2026",
+    description: "31-task engagement completed — content, SEO, and site work all delivered.",
+    client: "Creative Lawyers",
+    openTasks: 0,
+  },
+  {
+    id: "p7",
+    zohoId: "PR-373",
+    name: "RedCave",
+    teamsInvolved: [5, 8, 2, 7],
+    status: "in-progress",
+    startDate: "Jan 15, 2026",
+    description: "Large ongoing engagement — 79 open tasks across ops, content, and web.",
+    client: "RedCave",
+    progress: 8,
+    openTasks: 79,
+  },
+  {
+    id: "p8",
+    zohoId: "PR-367",
+    name: "EI Website Update",
+    teamsInvolved: [8, 7, 2],
+    status: "in-progress",
+    startDate: "Nov 1, 2025",
+    description: "Internal website modernization — 12 open tasks, near completion.",
+    progress: 91,
+    openTasks: 12,
+  },
+  {
+    id: "p9",
+    zohoId: "PR-359",
+    name: "EI Website SEO & Rankings",
+    teamsInvolved: [7, 2, 8],
+    status: "in-progress",
+    startDate: "Oct 15, 2025",
+    description: "Ongoing SEO campaign for EI.com — site audit, briefs, and rank tracking active. New tasks added today.",
+    progress: 0,
+    openTasks: 12,
   },
 ]
