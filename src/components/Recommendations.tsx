@@ -1,3 +1,5 @@
+"use client"
+
 import { generateRecommendations, RecommendationPriority, RecommendationTrigger } from "@/lib/recommendations"
 import { TEAMS, TEAM_COLORS } from "@/data/teams"
 import { WORKFLOWS } from "@/data/workflows"
